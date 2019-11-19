@@ -8,7 +8,6 @@ export const initialState = {
     },
     level: 0,
     score: 0
-
 };
 
 export const reducer = (state = initialState, action) => {
