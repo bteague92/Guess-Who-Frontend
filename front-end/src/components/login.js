@@ -1,32 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { axiosWithAuth } from "./../utils/axiosWithAuth";
-import { connect } from "react-redux";
-import { login } from './../actions/actionCreator';
+import LoginContext from "./../contexts/loginContext";
 
 const Login = (props) => {
 
-    const [form, setForm] = useState({
-        username: '',
-        password: ''
-    })
+    const { credentials, setCredentials, setLoggedIn, loggedIn } = useContext(LoginContext);
 
     const login = e => {
         e.preventDefault();
-        props.login(form);
+        axiosWithAuth()
+            .post("/api/auth/login", credentials)
+            .then(res => {
+                console.log("this is res", res);
+                localStorage.setItem("token", res.data.token);
+                setLoggedIn(true);
+                if (loggedIn === true) {
+                    props.history.push("/main-screen")
+                }
+                console.log("LoggedIn?", loggedIn);
+                console.log("credentials:", credentials);
+            })
+            .catch(err => err)
     };
 
     useEffect(() => {
-        if (props.loggedIn === true) {
+        if (loggedIn === true) {
             props.history.push("/main-screen")
-        }
-        if (props.loggedIn === false) {
+        } else {
             props.history.push("/")
         }
-    }, [props.loggedIn]);
+    }, [loggedIn])
 
     const handleChange = (e) => {
-        setForm({
-            ...form,
+        setCredentials({
+            ...credentials,
             [e.target.name]: e.target.value
         });
     }
@@ -39,7 +46,7 @@ const Login = (props) => {
                     type="text"
                     name="username"
                     placeholder="Username"
-                    value={form.username}
+                    value={credentials.username}
                     onChange={handleChange}
                 />
                 <input
@@ -47,7 +54,7 @@ const Login = (props) => {
                     type="password"
                     name="password"
                     placeholder="password"
-                    value={form.password}
+                    value={credentials.password}
                     onChange={handleChange}
                 />
                 <button className="mainButtons">Login</button>
@@ -57,4 +64,4 @@ const Login = (props) => {
     );
 };
 
-export default connect(state => state, { login })(Login);
+export default Login;
