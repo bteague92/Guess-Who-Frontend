@@ -25,13 +25,12 @@ const Login = (props) => {
         setForm({
             ...form,
             [e.target.name]: e.target.value
-        })
+        });
     }
 
     return (
         <div>
             <form className="loginForm" onSubmit={login}>
-                <label name="username">Username:</label>
                 <input
                     className="loginItems"
                     type="text"
@@ -40,7 +39,6 @@ const Login = (props) => {
                     value={form.username}
                     onChange={handleChange}
                 />
-                <label name="password">Password:</label>
                 <input
                     className="loginItems"
                     type="password"
@@ -49,8 +47,8 @@ const Login = (props) => {
                     value={form.password}
                     onChange={handleChange}
                 />
-                <button>Log in</button>
-                <button onClick={() => props.history.push("/register")}>Sign Up</button>
+                <button className="mainButtons">Log in</button>
+                <button className="mainButtons" onClick={() => props.history.push("/register")}>Sign Up</button>
             </form>
         </div>
     );

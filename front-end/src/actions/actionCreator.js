@@ -1,16 +1,18 @@
 import { axiosWithAuth } from "./../utils/axiosWithAuth";
 import axios from "axios";
 
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
-export const SUBMIT_ANSWER = 'SUBMIT_ANSWER';
-export const ADD_SCORE = 'ADD_SCORE';
-export const ADD_LEVEL = 'ADD_LEVEL';
 export const SIGN_UP = 'SIGN_UP';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
+export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT = 'LOGOUT';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+export const SUBMIT_ANSWER = 'SUBMIT_ANSWER';
+export const ADD_SCORE = 'ADD_SCORE';
+export const ADD_LEVEL = 'ADD_LEVEL';
 
 export const signUp = credentials => dispatch => {
     dispatch({
@@ -73,9 +75,23 @@ export const addLevel = level => {
     }
 }
 
-export const logout = logout => {
-    return {
+export const logout = credentials => dispatch => {
+    dispatch({
         type: LOGOUT,
-        payload: logout
-    }
+    })
+    axiosWithAuth()
+        .post("/api/auth/login", credentials)
+        .then(res => {
+            console.log("this is res", res);
+            localStorage.removeItem("token");
+            dispatch({
+                type: LOGOUT_SUCCESS,
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: LOGOUT_FAILURE
+            })
+        })
+
 };
