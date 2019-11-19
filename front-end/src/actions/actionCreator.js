@@ -17,12 +17,10 @@ export const signUp = credentials => dispatch => {
         type: SIGN_UP
     })
     axios
-        .post(`https://backend-guesswho.herokuapp.com//api/auth/register`, credentials)
+        .post(`https://backend-guesswho.herokuapp.com/api/auth/register`, credentials)
         .then(res => {
-            localStorage.setItem("token", res.data.token);
             dispatch({
-                type: SIGN_UP_SUCCESS,
-                payload: res.data.token
+                type: SIGN_UP_SUCCESS
             })
         })
         .catch(err => {
@@ -32,13 +30,6 @@ export const signUp = credentials => dispatch => {
         })
 };
 
-export const logout = logout => {
-    return {
-        type: LOGOUT,
-        payload: logout
-    }
-};
-
 export const login = credentials => dispatch => {
     dispatch({
         type: LOGIN,
@@ -46,7 +37,7 @@ export const login = credentials => dispatch => {
     axiosWithAuth()
         .post("/api/auth/login", credentials)
         .then(res => {
-            console.log("this is res", res)
+            console.log("this is res", res);
             localStorage.setItem("token", res.data.token);
             dispatch({
                 type: LOGIN_SUCCESS,
@@ -81,3 +72,10 @@ export const addLevel = level => {
         payload: level
     }
 }
+
+export const logout = logout => {
+    return {
+        type: LOGOUT,
+        payload: logout
+    }
+};
