@@ -5,6 +5,7 @@ import PrivateRoute from "./utils/privateRoute";
 import './App.css';
 import Login from "./components/login";
 import MainScreen from "./components/mainScreen";
+import { reducer } from './reducers/reducer';
 import PlayScreen from "./components/playScreen";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Login} />
           <PrivateRoute path="/main-screen">
+            <Route exact path="/reducer" component={reducer} />
             <Route exact path="/main-screen" component={MainScreen} />
             <Route exact path="/play-screen" component={PlayScreen} />
           </PrivateRoute>

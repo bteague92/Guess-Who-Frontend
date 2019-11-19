@@ -1,25 +1,29 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from "./../utils/axiosWithAuth";
 import { connect } from "react-redux";
-// import { login } from './../actions/actionCreator';
+import { login } from './../actions/actionCreator';
 
 const Login = (props) => {
 
     const [loggedIn, setLoggedIn] = useState(false);
+    const [form, setForm] = useState({
+        username: '',
+        password: ''
+    })
 
     const login = e => {
         e.preventDefault();
-        axiosWithAuth()
-            .post("/api/auth/login", props.credentials)
-            .then(res => {
-                localStorage.setItem("token", res.data.payload);
-                if ("token" ? setLoggedIn(true) : null);
-                return props.history.push("/main-screen")
-            })
-            .catch(err => console.log(err))
+        props.login(form);
+        if (props.loggedIn === true) {
+            return props.history.push("/main-screen")
+        }
     };
 
     const handleChange = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value
+        })
     }
 
     return (
@@ -31,7 +35,7 @@ const Login = (props) => {
                     type="text"
                     name="username"
                     placeholder="Username"
-                    value={props.credentials.username}
+                    value={form.username}
                     onChange={handleChange}
                 />
                 <label name="password">Password:</label>
@@ -40,7 +44,7 @@ const Login = (props) => {
                     type="password"
                     name="password"
                     placeholder="password"
-                    value={props.credentials.password}
+                    value={form.password}
                     onChange={handleChange}
                 />
                 <button>Log in</button>
@@ -49,4 +53,4 @@ const Login = (props) => {
     );
 };
 
-export default connect(state => state, null)(Login);
+export default connect(state => state, { login })(Login);
