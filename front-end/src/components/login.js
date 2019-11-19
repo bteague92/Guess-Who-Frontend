@@ -13,9 +13,6 @@ const Login = (props) => {
     const login = e => {
         e.preventDefault();
         props.login(form);
-        if (props.loggedIn === true) {
-            return props.history.push("/main-screen")
-        }
     };
 
     useEffect(() => {
