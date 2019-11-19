@@ -7,6 +7,7 @@ import Login from "./components/login";
 import MainScreen from "./components/mainScreen";
 import { reducer } from './reducers/reducer';
 import PlayScreen from "./components/playScreen";
+import Registration from "./components/registration";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route exact path="/reducer" component={reducer} />
             <Route exact path="/main-screen" component={MainScreen} />
             <Route exact path="/play-screen" component={PlayScreen} />
+            <Route exact path="/registration" component={Registration} />
           </PrivateRoute>
         </Switch>
       </div>

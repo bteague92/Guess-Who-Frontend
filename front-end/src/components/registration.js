@@ -55,7 +55,7 @@ const Register= (props) => {
                 <input
                       className="inputs"
                       type="password"
-                      name=" password_confirmation"
+                      name="password_confirmation"
                       value={credentials.password}
                       onChange={handleChange}
                   />  
@@ -66,4 +66,4 @@ const Register= (props) => {
     );
 };
 
-export default Register
+export default connect(state => state, { register })(Register);
