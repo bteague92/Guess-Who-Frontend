@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-// import { axiosWithAuth } from "./../utils/axiosWithAuth";
 import { connect } from "react-redux";
 import { signUp } from "./../actions/actionCreator";
+import {Link} from "react-router-dom";
 
 export const Register = (props) => {
 
     const [form, setForm] = useState({
         username: '',
-        password: ''
+        password: '',
     })
 
     const register = e => {
@@ -27,6 +27,8 @@ export const Register = (props) => {
 
     return (
         <div>
+            <Link className="mainLink" to='/'>Login</Link>
+
             <form className="loginForm" onSubmit={register}>
                 <input
                     className="loginItems"
@@ -36,6 +38,7 @@ export const Register = (props) => {
                     value={form.username}
                     onChange={handleChange}
                 />
+                
                 <input
                     className="loginItems"
                     type="password"
@@ -44,6 +47,7 @@ export const Register = (props) => {
                     value={form.password}
                     onChange={handleChange}
                 />
+
                 <button className="mainButtons">Register</button>
             </form>
         </div>

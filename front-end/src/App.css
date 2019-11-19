@@ -100,3 +100,11 @@
   height: 60%;
   width: 100vw;
 }
+
+.mainLink{
+  font-size: xx-large;
+  padding : 20px;
+  margin: 20px;
+  text-decoration: none;
+  color: darkblue;
+}

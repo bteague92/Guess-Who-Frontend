@@ -12,7 +12,7 @@ import Registration from "./components/registration";
 function App() {
   return (
     <Router>
-      <div class="mainApp">
+      <div className="mainApp">
         <Switch>
           <Route exact path="/" component={Login} />
           <Route exact path="/register" component={Registration} />
