@@ -1,15 +1,35 @@
+import { axiosWithAuth } from "./../utils/axiosWithAuth";
+import axios from "axios";
+
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SUBMIT_ANSWER = 'SUBMIT_ANSWER';
 export const ADD_SCORE = 'ADD_SCORE';
 export const ADD_LEVEL = 'ADD_LEVEL';
 export const SIGN_UP = 'SIGN_UP';
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
+export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
-export const signUp = details => {
-    return {
-        type: SIGN_UP,
-        payload: details
-    }
+export const signUp = credentials => dispatch => {
+    dispatch({
+        type: SIGN_UP
+    })
+    axios
+        .post(`https://backend-guesswho.herokuapp.com//api/auth/register`, credentials)
+        .then(res => {
+            localStorage.setItem("token", res.data.token);
+            dispatch({
+                type: SIGN_UP_SUCCESS,
+                payload: res.data.token
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: SIGN_UP_FAILURE
+            })
+        })
 };
 
 export const logout = logout => {
@@ -19,11 +39,26 @@ export const logout = logout => {
     }
 };
 
-export const login = credentials => {
-    return {
+export const login = credentials => dispatch => {
+    dispatch({
         type: LOGIN,
-        payload: credentials
-    }
+    })
+    axiosWithAuth()
+        .post("/api/auth/login", credentials)
+        .then(res => {
+            console.log("this is res", res)
+            localStorage.setItem("token", res.data.token);
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: res.data.token
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: LOGIN_FAILURE
+            })
+        })
+
 };
 
 export const submitAnswer = answer => {

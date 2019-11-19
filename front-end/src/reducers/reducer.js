@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, ADD_SCORE, ADD_LEVEL, SUBMIT_ANSWER, SIGN_UP } from './../actions/actionCreator';
+import { LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, ADD_SCORE, ADD_LEVEL, SUBMIT_ANSWER, SIGN_UP_SUCCESS, SIGN_UP_FAILURE } from './../actions/actionCreator';
 
 export const initialState = {
     loggedIn: false,
@@ -13,18 +13,22 @@ export const initialState = {
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case SIGN_UP:
-            console.log(action.payload);
-            return {
-
-            }
-        case LOGIN:
-            console.log(action.payload);
+        case SIGN_UP_SUCCESS:
             return {
                 ...state,
-                username: (action.payload.username),
-                password: (action.payload.password)
+                loggedIn: true
             }
+        case SIGN_UP_FAILURE:
+            return console.log("signup didnt work");
+
+        case LOGIN_SUCCESS:
+            return {
+                ...state,
+                loggedIn: true
+            }
+        case LOGIN_FAILURE:
+            return console.log("Login didnt work")
+
         case LOGOUT:
             return {
 
