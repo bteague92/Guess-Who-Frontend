@@ -44,7 +44,7 @@ export const Register = (props) => {
                     value={form.password}
                     onChange={handleChange}
                 />
-                <button>Register</button>
+                <button className="mainButtons">Register</button>
             </form>
         </div>
     );
