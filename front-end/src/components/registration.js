@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { axiosWithAuth } from "./../utils/axiosWithAuth";
+// import { axiosWithAuth } from "./../utils/axiosWithAuth";
 import { connect } from "react-redux";
 import { signUp } from "./../actions/actionCreator";
 
