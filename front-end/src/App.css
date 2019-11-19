@@ -2,6 +2,18 @@
   text-align: center;
 }
 
+.appColors{
+  color: #5680E9;
+  color: #84CEEB;
+  color: #5AB9EA;
+  color: #C1C8E4;
+  color: #8860D0;
+}
+
+.mainApp{
+  background: #84CEEB;
+}
+
 .App-logo {
   height: 40vmin;
 }
@@ -33,4 +45,43 @@
 .loginItems{
   margin: 0 0 2% 0;
   text-align: center;
+  font-size: 3vw;
+  border-radius: 50px;
+  border: 2px solid #5680E9;
+}
+
+.mainButtons{
+  font-size: 1.7vw;
+  border-radius: 30px;
+  background: #5680E9;
+  color: white;
+  margin: 10px;
+  padding: 5px;
+  width: 10vw;
+}
+
+.mainScreenItem{
+  margin: 3%;
+  font-size: 7vw;
+  color: #8860D0;
+  font-weight: 900;
+}
+
+.playButton{
+  font-size: 9vw;
+  border-radius: 50px;
+  width: 27vw;
+  background: #5680E9;
+  color: white;
+  border: 2px solid #8860D0;
+}
+
+.signOutButton{
+  font-size: 4vw;
+  border-radius: 50px;
+  width: 20vw;
+  background: rgb(220, 255, 92);
+  color: black;
+  border: 2px solid #8860D0;
+  margin-top: 30%;
 }
