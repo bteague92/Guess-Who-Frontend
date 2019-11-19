@@ -85,3 +85,18 @@
   border: 2px solid #8860D0;
   margin-top: 30%;
 }
+
+.playScreen{
+  height: 100vh;
+  background: black;
+}
+
+.answers{
+  height: 40%;
+  width: 100vw;
+}
+
+.tweets{
+  height: 60%;
+  width: 100vw;
+}

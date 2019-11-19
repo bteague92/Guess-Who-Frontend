@@ -19,6 +19,9 @@ const Login = (props) => {
         if (props.loggedIn === true) {
             props.history.push("/main-screen")
         }
+        if (props.loggedIn === false) {
+            props.history.push("/")
+        }
     }, [props.loggedIn]);
 
     const handleChange = (e) => {
@@ -47,7 +50,7 @@ const Login = (props) => {
                     value={form.password}
                     onChange={handleChange}
                 />
-                <button className="mainButtons">Log in</button>
+                <button className="mainButtons">Login</button>
                 <button className="mainButtons" onClick={() => props.history.push("/register")}>Sign Up</button>
             </form>
         </div>
