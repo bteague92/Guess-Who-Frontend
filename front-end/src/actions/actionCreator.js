@@ -82,7 +82,6 @@ export const logout = credentials => dispatch => {
     axiosWithAuth()
         .post("/api/auth/login", credentials)
         .then(res => {
-            console.log("this is res", res);
             localStorage.removeItem("token");
             dispatch({
                 type: LOGOUT_SUCCESS,

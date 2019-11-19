@@ -3,9 +3,13 @@ import { connect } from "react-redux";
 
 const PlayScreen = (props) => {
     return (
-        <div>
-            <div className="answers"></div>
-            <div className="tweets"></div>
+        <div className="playScreen">
+            <div className="answers">
+
+            </div>
+            <div className="tweets">
+
+            </div>
         </div>
     );
 }
