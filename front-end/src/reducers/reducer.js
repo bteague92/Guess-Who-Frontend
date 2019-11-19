@@ -13,10 +13,7 @@ export const initialState = {
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
         case SIGN_UP_SUCCESS:
-            return {
-                ...state,
-                loggedIn: true
-            }
+            return console.log("signup worked")
         case SIGN_UP_FAILURE:
             return console.log("signup didnt work");
 

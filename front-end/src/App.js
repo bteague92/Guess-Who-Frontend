@@ -15,11 +15,11 @@ function App() {
       <div>
         <Switch>
           <Route exact path="/" component={Login} />
+          <Route exact path="/register" component={Registration} />
           <PrivateRoute path="/main-screen">
             <Route exact path="/reducer" component={reducer} />
             <Route exact path="/main-screen" component={MainScreen} />
             <Route exact path="/play-screen" component={PlayScreen} />
-            <Route exact path="/registration" component={Registration} />
           </PrivateRoute>
         </Switch>
       </div>

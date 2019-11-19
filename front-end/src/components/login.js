@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "./../utils/axiosWithAuth";
 import { connect } from "react-redux";
 import { login } from './../actions/actionCreator';
 
 const Login = (props) => {
 
-    const [loggedIn, setLoggedIn] = useState(false);
     const [form, setForm] = useState({
         username: '',
         password: ''
@@ -18,6 +17,12 @@ const Login = (props) => {
             return props.history.push("/main-screen")
         }
     };
+
+    useEffect(() => {
+        if (props.loggedIn === true) {
+            props.history.push("/main-screen")
+        }
+    }, [props.loggedIn]);
 
     const handleChange = (e) => {
         setForm({
@@ -48,6 +53,7 @@ const Login = (props) => {
                     onChange={handleChange}
                 />
                 <button>Log in</button>
+                <button onClick={() => props.history.push("/register")}>Sign Up</button>
             </form>
         </div>
     );

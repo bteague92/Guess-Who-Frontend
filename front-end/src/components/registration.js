@@ -1,69 +1,53 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from "./../utils/axiosWithAuth";
 import { connect } from "react-redux";
+import { signUp } from "./../actions/actionCreator";
 
-const Register= (props) => {
+export const Register = (props) => {
 
-    const [credentials, setCredentials] = useState({
-      email: "",
-      password: "",
-      password_confirmation: "",
-      registrationErrors: ""
-    });
-
-    const [registerNow, setRegisterNow] = useState(false);
+    const [form, setForm] = useState({
+        username: '',
+        password: ''
+    })
 
     const register = e => {
         e.preventDefault();
-        axiosWithAuth()
-            .post("/", credentials)
-            .then(res => {
-                localStorage.setItem("token", res.data.payload);
-                if ("token" ? setRegisterNow(true) : null);
-                return props.history.push("")
-            })
-            .catch(error => console.log("registration error",error))
+        props.signUp(form);
+        if (props.loggedIn === false) {
+            return props.history.push("/")
+        }
     };
 
-    const handleChange = e => {
-        setCredentials({
-            ...credentials,
+    const handleChange = (e) => {
+        setForm({
+            ...form,
             [e.target.name]: e.target.value
         })
-    };
-
+    }
 
     return (
         <div>
-            <form onSubmit={register}>
+            <form className="loginForm" onSubmit={register}>
                 <input
-                    className="inputs"
+                    className="loginItems"
                     type="text"
-                    name="email"
-                    placeholder="Email"
-                    value={credentials.email}
+                    name="username"
+                    placeholder="Username"
+                    value={form.username}
                     onChange={handleChange}
                 />
                 <input
-                    className="inputs"
+                    className="loginItems"
                     type="password"
                     name="password"
-                    placeholder="password"
-                    value={credentials.password}
+                    placeholder="Password"
+                    value={form.password}
                     onChange={handleChange}
                 />
-                <input
-                      className="inputs"
-                      type="password"
-                      name="password_confirmation"
-                      value={credentials.password}
-                      onChange={handleChange}
-                  />  
-    
                 <button>Register</button>
             </form>
         </div>
     );
 };
 
-export default connect(state => state, { register })(Register);
+export default connect(state => state, { signUp })(Register);
