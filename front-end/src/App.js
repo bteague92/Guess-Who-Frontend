@@ -8,8 +8,9 @@ import Login from "./components/login";
 import MainScreen from "./components/mainScreen";
 import PlayScreen from "./components/playScreen";
 import Registration from "./components/registration";
-import LoginContext from "./contexts/loginContext";
+import Context from "./contexts/loginContext";
 import PlayerContext from "./contexts/playerContext";
+import UpdateForm from "./components/updateUsername";
 
 function App() {
 
@@ -26,16 +27,15 @@ function App() {
     <Router>
       <div className="mainApp">
         <Switch>
-          <LoginContext.Provider value={{ setLoggedIn, loggedIn, credentials, setCredentials }}>
+          <Context.Provider value={{ setLoggedIn, loggedIn, setLoggedIn, credentials, setCredentials, level, setLevel, score, setScore, highScore, setHighScore }}>
             <Route exact path="/" component={Login} />
             <Route path="/register" component={Registration} />
-          </LoginContext.Provider>
-          <PrivateRoute>
-            <PlayerContext.Provider value={{ credentials, setLoggedIn, level, setLevel, score, setScore, highScore, setHighScore }}>
-              <Route path="/main-screen" component={MainScreen} />
-              <Route path="/play-screen" component={PlayScreen} />
-            </PlayerContext.Provider>
-          </PrivateRoute>
+            {/* <PlayerContext.Provider value={{ credentials, setLoggedIn, level, setLevel, score, setScore, highScore, setHighScore }}> */}
+            <PrivateRoute path="/main-screen" component={MainScreen} />
+            <PrivateRoute path="/play-screen" component={PlayScreen} />
+            <PrivateRoute path="/update-form" component={UpdateForm} />
+            {/* </PlayerContext.Provider> */}
+          </Context.Provider>
         </Switch>
       </div>
     </Router>

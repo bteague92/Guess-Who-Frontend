@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { axiosWithAuth } from "./../utils/axiosWithAuth";
-import LoginContext from "./../contexts/loginContext";
+import Context from "./../contexts/loginContext";
 
 const Login = (props) => {
 
-    const { credentials, setCredentials, setLoggedIn, loggedIn } = useContext(LoginContext);
+    const { credentials, setCredentials, setLoggedIn, loggedIn } = useContext(Context);
 
     const login = e => {
         e.preventDefault();
@@ -17,6 +17,9 @@ const Login = (props) => {
                 if (loggedIn === true) {
                     props.history.push("/main-screen")
                 }
+                setCredentials({
+                    username: credentials.username
+                })
                 console.log("LoggedIn?", loggedIn);
                 console.log("credentials:", credentials);
             })
@@ -26,6 +29,7 @@ const Login = (props) => {
     useEffect(() => {
         if (loggedIn === true) {
             props.history.push("/main-screen")
+            console.log("LoggedIn?", loggedIn)
         } else {
             props.history.push("/")
         }
