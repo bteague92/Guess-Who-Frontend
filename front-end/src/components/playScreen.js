@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from "react-redux";
 
 const PlayScreen = (props) => {
     return (
@@ -14,4 +13,4 @@ const PlayScreen = (props) => {
     );
 }
 
-export default connect(state => state, null)(PlayScreen);
+export default PlayScreen;

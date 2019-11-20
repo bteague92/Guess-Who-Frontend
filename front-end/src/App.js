@@ -1,30 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { connect } from "react-redux";
 import PrivateRoute from "./utils/privateRoute";
 import './App.css';
+import { axiosWithAuth } from "./utils/axiosWithAuth";
+import axios from "axios";
 import Login from "./components/login";
 import MainScreen from "./components/mainScreen";
-import { reducer } from './reducers/reducer';
 import PlayScreen from "./components/playScreen";
 import Registration from "./components/registration";
+import Context from "./contexts/loginContext";
+import PlayerContext from "./contexts/playerContext";
+import UpdateForm from "./components/updateUsername";
 
 function App() {
+
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [credentials, setCredentials] = useState({
+    username: '',
+    password: ''
+  })
+  const [level, setLevel] = useState(0);
+  const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
+
   return (
     <Router>
-      <div class="mainApp">
+      <div className="mainApp">
         <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/register" component={Registration} />
-          <PrivateRoute path="/main-screen">
-            <Route exact path="/reducer" component={reducer} />
-            <Route exact path="/main-screen" component={MainScreen} />
-            <Route exact path="/play-screen" component={PlayScreen} />
-          </PrivateRoute>
+          <Context.Provider value={{ setLoggedIn, loggedIn, setLoggedIn, credentials, setCredentials, level, setLevel, score, setScore, highScore, setHighScore }}>
+            <Route exact path="/" component={Login} />
+            <Route path="/register" component={Registration} />
+            {/* <PlayerContext.Provider value={{ credentials, setLoggedIn, level, setLevel, score, setScore, highScore, setHighScore }}> */}
+            <PrivateRoute path="/main-screen" component={MainScreen} />
+            <PrivateRoute path="/play-screen" component={PlayScreen} />
+            <PrivateRoute path="/update-form" component={UpdateForm} />
+            {/* </PlayerContext.Provider> */}
+          </Context.Provider>
         </Switch>
       </div>
     </Router>
   );
 }
 
-export default connect(state => state, null)(App);
+export default App;

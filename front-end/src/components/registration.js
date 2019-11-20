@@ -1,39 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { axiosWithAuth } from "./../utils/axiosWithAuth";
-import { connect } from "react-redux";
-import { signUp } from "./../actions/actionCreator";
+import axios from "axios";
+import LoginContext from "./../contexts/loginContext";
 
 export const Register = (props) => {
 
-    const [form, setForm] = useState({
-        username: '',
-        password: ''
-    })
+    const { credentials, setCredentials, setLoggedIn, loggedIn } = useContext(LoginContext);
 
-    const register = e => {
+    const signUp = e => {
         e.preventDefault();
-        props.signUp(form);
-        if (props.loggedIn === false) {
-            return props.history.push("/")
-        }
+        axios
+            .post(`https://backend-guesswho.herokuapp.com/api/auth/register`, credentials)
+            .then(res => {
+                props.history.push("/");
+                console.log("credentials:", credentials);
+                console.log("credentials after signUp", credentials);
+                console.log("loggedIn after signUp", loggedIn)
+            })
+            .catch(err => err)
     };
 
     const handleChange = (e) => {
-        setForm({
-            ...form,
+        setCredentials({
+            ...credentials,
             [e.target.name]: e.target.value
         })
     }
 
     return (
         <div>
-            <form className="loginForm" onSubmit={register}>
+            <form className="loginForm" onSubmit={signUp}>
                 <input
                     className="loginItems"
                     type="text"
                     name="username"
                     placeholder="Username"
-                    value={form.username}
+                    value={credentials.username}
                     onChange={handleChange}
                 />
                 <input
@@ -41,7 +43,7 @@ export const Register = (props) => {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    value={form.password}
+                    value={credentials.password}
                     onChange={handleChange}
                 />
                 <button className="mainButtons">Register</button>
@@ -50,4 +52,4 @@ export const Register = (props) => {
     );
 };
 
-export default connect(state => state, { signUp })(Register);
+export default Register;

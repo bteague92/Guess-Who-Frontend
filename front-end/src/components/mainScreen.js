@@ -1,36 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from "react-redux";
+import React, { useState, useContext } from 'react';
 import { axiosWithAuth } from "./../utils/axiosWithAuth";
-import axios from "axios";
-import { logout } from './../actions/actionCreator';
+// import PlayerContext from "./../contexts/playerContext";
+import Context from "./../contexts/loginContext";
 
 const MainScreen = (props) => {
 
-    const [form, setForm] = useState({
-        username: '',
-        password: ''
-    })
+    const { credentials, setLoggedIn, loggedIn, level, highScore } = useContext(Context);
 
     const logout = e => {
-        props.logout(props.credentials);
+        e.preventDefault();
+        axiosWithAuth()
+            .post("/api/auth/login")
+            .then(res => {
+                localStorage.removeItem("token");
+                setLoggedIn(false);
+                props.history.push("/");
+                console.log("credentials after logout", credentials);
+                console.log("loggedIn after logout", loggedIn)
+            })
+            .catch(err => err)
     };
-
-    useEffect(() => {
-        if (props.loggedIn === false) {
-            localStorage.removeItem("token")
-            props.history.push("/")
-        }
-    }, [props.loggedIn]);
 
     return (
         <div className="loginForm">
-            <div className="mainScreenItem">Username</div>
-            <div className="mainScreenItem">Level: {props.level}</div>
-            <div className="mainScreenItem">High Score: {props.highScore}</div>
-            <button className="playButton" onClick={() => props.history.push("/play-screen")}>Play</button>
+            <div className="mainScreenItem">{credentials.username}</div>
+            <button onClick={() => props.history.push("/update-username")}>Change Username</button>
+            <div className="mainScreenItem">Level: {level}</div>
+            <div className="mainScreenItem">High Score: {highScore}</div>
+            <button className="playButton">Play</button>
             <button className="signOutButton" onClick={logout}>Sign Out</button>
         </div>
     );
 }
 
-export default connect(state => state, { logout })(MainScreen);
+export default MainScreen;
