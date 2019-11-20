@@ -11,7 +11,7 @@ const Login = (props) => {
         axiosWithAuth()
             .post("/api/auth/login", credentials)
             .then(res => {
-                console.log("this is res", res);
+
                 localStorage.setItem("token", res.data.token);
                 setLoggedIn(true);
                 if (loggedIn === true) {
@@ -20,8 +20,7 @@ const Login = (props) => {
                 setCredentials({
                     username: credentials.username
                 })
-                console.log("LoggedIn?", loggedIn);
-                console.log("credentials:", credentials);
+                console.log("credentials after login", credentials);
             })
             .catch(err => err)
     };
@@ -29,7 +28,7 @@ const Login = (props) => {
     useEffect(() => {
         if (loggedIn === true) {
             props.history.push("/main-screen")
-            console.log("LoggedIn?", loggedIn)
+            console.log("loggedIn after login", loggedIn)
         } else {
             props.history.push("/")
         }

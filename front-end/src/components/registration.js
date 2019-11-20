@@ -14,6 +14,8 @@ export const Register = (props) => {
             .then(res => {
                 props.history.push("/");
                 console.log("credentials:", credentials);
+                console.log("credentials after signUp", credentials);
+                console.log("loggedIn after signUp", loggedIn)
             })
             .catch(err => err)
     };

@@ -5,16 +5,18 @@ import Context from "./../contexts/loginContext";
 
 const MainScreen = (props) => {
 
-    const { credentials, setLoggedIn } = useContext(Context);
+    const { credentials, setLoggedIn, loggedIn, level, highScore } = useContext(Context);
 
-    const logout = () => {
+    const logout = e => {
+        e.preventDefault();
         axiosWithAuth()
-            .post("/api/auth/login", credentials)
+            .post("/api/auth/login")
             .then(res => {
-                console.log("this is res", res);
                 localStorage.removeItem("token");
                 setLoggedIn(false);
                 props.history.push("/");
+                console.log("credentials after logout", credentials);
+                console.log("loggedIn after logout", loggedIn)
             })
             .catch(err => err)
     };
@@ -23,8 +25,8 @@ const MainScreen = (props) => {
         <div className="loginForm">
             <div className="mainScreenItem">{credentials.username}</div>
             <button onClick={() => props.history.push("/update-username")}>Change Username</button>
-            <div className="mainScreenItem">Level: {props.level}</div>
-            <div className="mainScreenItem">High Score: {props.highScore}</div>
+            <div className="mainScreenItem">Level: {level}</div>
+            <div className="mainScreenItem">High Score: {highScore}</div>
             <button className="playButton">Play</button>
             <button className="signOutButton" onClick={logout}>Sign Out</button>
         </div>
