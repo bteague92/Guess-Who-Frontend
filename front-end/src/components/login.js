@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "./../utils/axiosWithAuth";
 import { connect } from "react-redux";
 import { login } from './../actions/actionCreator';
+import NavMenu from "./NavMenu";
 
 const Login = (props) => {
 
@@ -33,6 +34,7 @@ const Login = (props) => {
 
     return (
         <div>
+            <NavMenu />
             <form className="loginForm" onSubmit={login}>
                 <input
                     className="loginItems"

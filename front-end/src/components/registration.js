@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { signUp } from "./../actions/actionCreator";
-import {Link} from "react-router-dom";
+import NavMenu from "./NavMenu";
 
 export const Register = (props) => {
 
@@ -27,7 +27,7 @@ export const Register = (props) => {
 
     return (
         <div>
-            <Link className="mainLink" to='/'>Login</Link>
+            <NavMenu />
 
             <form className="loginForm" onSubmit={register}>
                 <input
