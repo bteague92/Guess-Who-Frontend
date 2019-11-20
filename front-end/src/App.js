@@ -29,11 +29,11 @@ function App() {
         <Switch>
           <Context.Provider value={{ setLoggedIn, loggedIn, setLoggedIn, credentials, setCredentials, level, setLevel, score, setScore, highScore, setHighScore }}>
             <Route exact path="/" component={Login} />
-            <Route path="/register" component={Registration} />
+            <Route exact path="/register" component={Registration} />
             {/* <PlayerContext.Provider value={{ credentials, setLoggedIn, level, setLevel, score, setScore, highScore, setHighScore }}> */}
-            <PrivateRoute path="/main-screen" component={MainScreen} />
-            <PrivateRoute path="/play-screen" component={PlayScreen} />
-            <PrivateRoute path="/update-form" component={UpdateForm} />
+            <PrivateRoute exact path="/main-screen" component={MainScreen} />
+            <PrivateRoute exact path="/play-screen" component={PlayScreen} />
+            <PrivateRoute exact path="/update-form" component={UpdateForm} />
             {/* </PlayerContext.Provider> */}
           </Context.Provider>
         </Switch>
