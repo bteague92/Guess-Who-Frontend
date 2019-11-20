@@ -88,29 +88,23 @@
 
 .playScreen{
   height: 100vh;
-  padding-top: 30px;
+  background: black;
 }
 
 .answers{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: wrap;
   height: 40%;
   width: 100vw;
-}
-
-.pics{
-  width: 40vw;
-  height: 40vw;
-  margin: 2% 0 2% 0;
-  border-radius: 50%;
 }
 
 .tweets{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  height: 40%;
+  height: 60%;
   width: 100vw;
+}
+
+.searchInput {
+  
+    width: 20%;
+    padding: 8px 8px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
