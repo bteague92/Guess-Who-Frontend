@@ -13,6 +13,7 @@ const Login = (props) => {
             .then(res => {
 
                 localStorage.setItem("token", res.data.token);
+                localStorage.setItem("username", credentials.username);
                 setLoggedIn(true);
                 if (loggedIn === true) {
                     props.history.push("/main-screen")
