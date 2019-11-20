@@ -11,6 +11,7 @@ import Registration from "./components/registration";
 import Context from "./contexts/loginContext";
 import PlayerContext from "./contexts/playerContext";
 import UpdateForm from "./components/updateUsername";
+import Users from "./components/Users";
 
 function App() {
 
@@ -30,6 +31,10 @@ function App() {
           <Context.Provider value={{ setLoggedIn, loggedIn, setLoggedIn, credentials, setCredentials, level, setLevel, score, setScore, highScore, setHighScore }}>
             <Route exact path="/" component={Login} />
             <Route path="/register" component={Registration} />
+
+            {/* Made changes added users Route */}
+            <Route path="/users" component={Users}/> 
+            
             {/* <PlayerContext.Provider value={{ credentials, setLoggedIn, level, setLevel, score, setScore, highScore, setHighScore }}> */}
             <PrivateRoute path="/main-screen" component={MainScreen} />
             <PrivateRoute path="/play-screen" component={PlayScreen} />
