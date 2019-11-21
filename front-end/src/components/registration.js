@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
-import { axiosWithAuth } from "./../utils/axiosWithAuth";
 import axios from "axios";
 import LoginContext from "./../contexts/loginContext";
+import NavMenu from "./NavMenu";
 
 export const Register = (props) => {
 
@@ -13,9 +13,6 @@ export const Register = (props) => {
             .post(`https://backend-guesswho.herokuapp.com/api/auth/register`, credentials)
             .then(res => {
                 props.history.push("/");
-                console.log("credentials:", credentials);
-                console.log("credentials after signUp", credentials);
-                console.log("loggedIn after signUp", loggedIn)
             })
             .catch(err => err)
     };
@@ -29,6 +26,8 @@ export const Register = (props) => {
 
     return (
         <div>
+             {/* Added NavMenu here */}
+             <NavMenu/>
             <form className="loginForm" onSubmit={signUp}>
                 <input
                     className="loginItems"

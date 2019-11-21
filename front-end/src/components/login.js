@@ -1,39 +1,29 @@
 import React, { useState, useEffect, useContext } from "react";
 import { axiosWithAuth } from "./../utils/axiosWithAuth";
 import Context from "./../contexts/loginContext";
+import NavMenu from "./NavMenu";
 
 const Login = (props) => {
 
-    const { credentials, setCredentials, setLoggedIn, loggedIn } = useContext(Context);
+    const { credentials, setCredentials, setLoggedIn, loggedIn, highScore, setHighScore } = useContext(Context);
 
     const login = e => {
         e.preventDefault();
         axiosWithAuth()
             .post("/api/auth/login", credentials)
             .then(res => {
-
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("username", credentials.username);
+                localStorage.setItem("id", res.data.id);
+                setHighScore(res.data.score)
                 setLoggedIn(true);
-                if (loggedIn === true) {
-                    props.history.push("/main-screen")
-                }
                 setCredentials({
                     username: credentials.username
-                })
-                console.log("credentials after login", credentials);
+                });
+                props.history.push("/main-screen")
             })
             .catch(err => err)
     };
-
-    useEffect(() => {
-        if (loggedIn === true) {
-            props.history.push("/main-screen")
-            console.log("loggedIn after login", loggedIn)
-        } else {
-            props.history.push("/")
-        }
-    }, [loggedIn])
 
     const handleChange = (e) => {
         setCredentials({
@@ -44,7 +34,9 @@ const Login = (props) => {
 
     return (
         <div>
+            <NavMenu />
             <form className="loginForm" onSubmit={login}>
+                <h1 className="guessWhoHeader">Guess Who</h1>
                 <input
                     className="loginItems"
                     type="text"
