@@ -31,10 +31,11 @@ function App() {
           <Context.Provider value={{ setLoggedIn, loggedIn, setLoggedIn, credentials, setCredentials, level, setLevel, score, setScore, highScore, setHighScore }}>
             <Route exact path="/" component={Login} />
  
-            <Route path="/register" component={Registration} />
+            <Route exact path="/register" component={Registration} />
 
             {/* Made changes added users Route */}
-            <Route path="/users" component={Users}/> 
+            <Route exact path="/users" component={Users}/> 
+            
             
             {/* <PlayerContext.Provider value={{ credentials, setLoggedIn, level, setLevel, score, setScore, highScore, setHighScore }}> */}
             <PrivateRoute exact path="/main-screen" component={MainScreen} />

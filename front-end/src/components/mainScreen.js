@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { axiosWithAuth } from "./../utils/axiosWithAuth";
 // import PlayerContext from "./../contexts/playerContext";
 import Context from "./../contexts/loginContext";
+import NavMenu from "./NavMenu";
 
 const MainScreen = (props) => {
 
@@ -24,12 +25,17 @@ const MainScreen = (props) => {
 
     return (
         <div className="loginForm">
+             
             <div className="mainScreenItem">{localStorage.getItem("username")}</div>
             <button onClick={() => props.history.push("/update-username")}>Change Username</button>
             <div className="mainScreenItem">Level: {level}</div>
             <div className="mainScreenItem">High Score: {highScore}</div>
             <button onClick={play} className="playButton">Play</button>
             <button className="signOutButton" onClick={logout}>Sign Out</button>
+            <footer>
+                  {/* Added NavMenu here */}
+             <NavMenu/>
+            </footer>
         </div>
     );
 }
