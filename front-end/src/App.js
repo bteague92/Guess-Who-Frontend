@@ -18,18 +18,18 @@ function App() {
   })
   const [level, setLevel] = useState(0);
   const [score, setScore] = useState(0);
-  const [highScore, setHighScore] = useState(0);
+  const [highScore, setHighScore] = useState(localStorage.getItem("hs"));
 
   return (
     <Router>
       <div className="mainApp">
         <Switch>
           <Context.Provider value={{ setLoggedIn, loggedIn, setLoggedIn, credentials, setCredentials, level, setLevel, score, setScore, highScore, setHighScore }}>
-            <Route exact path="/" component={Login} /> 
+            <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Registration} />
-            <Route exact path="/users" component={Users}/> 
+            <Route exact path="/users" component={Users} />
             <PrivateRoute exact path="/main-screen" component={MainScreen} />
-            <PrivateRoute exact path="/play-screen" component={PlayScreen} />            
+            <PrivateRoute exact path="/play-screen" component={PlayScreen} />
           </Context.Provider>
         </Switch>
       </div>

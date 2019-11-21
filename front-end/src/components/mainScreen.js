@@ -80,6 +80,10 @@ const MainScreen = (props) => {
         }
     }, [highScore])
 
+    useEffect(() => {
+        setHighScore(localStorage.getItem("hs"))
+    }, [username])
+
     return (
         <div>
             <NavMenu />
