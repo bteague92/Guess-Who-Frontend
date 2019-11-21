@@ -48,13 +48,14 @@ export default function Users() {
       </div>
 
       <div className="usersList">
-      <h2>User List</h2>
+      <h2><span id="myH2">User List</span></h2>
       <SearchBar search = {search} />
       {filterChars.map((char) => {
         return ( 
           <UserCard
             key={char.id} 
-            name={char.username} />
+            name={char.username}
+            score={char.score} />
         )
       })}
     </div>

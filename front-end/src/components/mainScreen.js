@@ -73,7 +73,9 @@ const MainScreen = (props) => {
 
     return (
         <div className="loginForm">
-             
+               {/* Added NavMenu here */}
+               <NavMenu/>
+
             <div className="mainScreenItem">{localStorage.getItem("username")}</div>
             <form onSubmit={editUsername}>
                 <input onChange={handleChange} type="text" name="username" />
@@ -83,11 +85,8 @@ const MainScreen = (props) => {
             <div className="mainScreenItem">High Score: {localStorage.getItem("hs")}</div>
             <button onClick={play} className="playButton">Play</button>
             <button className="signOutButton" onClick={logout}>Sign Out</button>
-            <footer>
-                  {/* Added NavMenu here */}
-             <NavMenu/>
-            </footer>
             <button className="deleteButton" onClick={deleteAccount}>Delete Account</button>
+
         </div>
     );
 }
