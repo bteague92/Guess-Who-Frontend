@@ -12,31 +12,18 @@ const Login = (props) => {
         axiosWithAuth()
             .post("/api/auth/login", credentials)
             .then(res => {
-                console.log("response from login", res)
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("username", credentials.username);
                 localStorage.setItem("id", res.data.id);
+                setHighScore(res.data.score)
                 setLoggedIn(true);
-                if (loggedIn === true) {
-                    props.history.push("/main-screen")
-                }
                 setCredentials({
                     username: credentials.username
                 });
-                setHighScore(res.data.score ? res.data.score : "---");
-                console.log("high score", highScore);
+                props.history.push("/main-screen")
             })
             .catch(err => err)
     };
-
-    useEffect(() => {
-        if (loggedIn === true) {
-            props.history.push("/main-screen")
-            console.log("loggedIn after login", loggedIn)
-        } else {
-            props.history.push("/")
-        }
-    }, [loggedIn, highScore])
 
     const handleChange = (e) => {
         setCredentials({
@@ -47,9 +34,9 @@ const Login = (props) => {
 
     return (
         <div>
-            {/* Added NavMenu here */}
-            <NavMenu/> 
+            <NavMenu />
             <form className="loginForm" onSubmit={login}>
+                <h1 className="guessWhoHeader">Guess Who</h1>
                 <input
                     className="loginItems"
                     type="text"
