@@ -83,14 +83,11 @@ const MainScreen = (props) => {
             <div className="mainScreenItem">High Score: {localStorage.getItem("hs")}</div>
             <button onClick={play} className="playButton">Play</button>
             <button className="signOutButton" onClick={logout}>Sign Out</button>
-<<<<<<< HEAD
             <footer>
                   {/* Added NavMenu here */}
              <NavMenu/>
             </footer>
-=======
             <button className="deleteButton" onClick={deleteAccount}>Delete Account</button>
->>>>>>> 2c9b9a996d424d6558e9cdbe41074ebc2707e3ce
         </div>
     );
 }
