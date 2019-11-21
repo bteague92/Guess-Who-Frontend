@@ -4,7 +4,10 @@ function SearchBar(props) {
   return (
     <input className="searchInput"
       onChange = {(event) => props.search(event.target.value)}
-      placeholder = 'Name' />   );
+      maxLength = {60}
+      placeholder = 'Search' 
+    //   required
+      />   );
 }
 
 

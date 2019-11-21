@@ -12,6 +12,7 @@
 
 .mainApp{
   background: #84CEEB;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -87,6 +88,72 @@
 }
 
 .playScreen{
+  height: 100vh;
+  background: black;
+}
+
+.answers{
+  height: 40%;
+  width: 100vw;
+}
+
+.tweets{
+  height: 60%;
+  width: 100vw;
+}
+
+.searchInput {
+  
+    width: 20%;
+    padding: 8px 8px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+footer{
+  margin: 20px;
+}
+
+a{
+  margin: 30px;
+  padding: 20px;
+  text-decoration: none;
+  color: darkcyan;
+
+}
+
+.usersContainer{
+  max-width: 100%;
+  background: #84CEEB ;
+}
+
+.usersList{
+  text-align: center;
+}
+
+/* // added some style here */
+ul{
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+li {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  background: #263650;
+  padding: 10px;
+  height: 80px;
+  border-radius: 4px;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  width: 45%;
+  
   padding: 3%;
   display: flex;
   flex-direction: column;

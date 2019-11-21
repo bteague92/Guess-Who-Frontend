@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { axiosWithAuth } from "./../utils/axiosWithAuth";
 import Context from "./../contexts/loginContext";
+import NavMenu from "./NavMenu";
 
 const Login = (props) => {
 
@@ -46,6 +47,8 @@ const Login = (props) => {
 
     return (
         <div>
+            {/* Added NavMenu here */}
+            <NavMenu/> 
             <form className="loginForm" onSubmit={login}>
                 <input
                     className="loginItems"

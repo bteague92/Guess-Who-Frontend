@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { axiosWithAuth } from "./../utils/axiosWithAuth";
 // import PlayerContext from "./../contexts/playerContext";
 import Context from "./../contexts/loginContext";
+import NavMenu from "./NavMenu";
 
 const MainScreen = (props) => {
 
@@ -72,6 +73,7 @@ const MainScreen = (props) => {
 
     return (
         <div className="loginForm">
+             
             <div className="mainScreenItem">{localStorage.getItem("username")}</div>
             <form onSubmit={editUsername}>
                 <input onChange={handleChange} type="text" name="username" />
@@ -81,6 +83,10 @@ const MainScreen = (props) => {
             <div className="mainScreenItem">High Score: {localStorage.getItem("hs")}</div>
             <button onClick={play} className="playButton">Play</button>
             <button className="signOutButton" onClick={logout}>Sign Out</button>
+            <footer>
+                  {/* Added NavMenu here */}
+             <NavMenu/>
+            </footer>
             <button className="deleteButton" onClick={deleteAccount}>Delete Account</button>
         </div>
     );

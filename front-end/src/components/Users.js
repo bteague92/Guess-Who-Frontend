@@ -1,52 +1,63 @@
-// import React, { useState, useEffect} from "react";
-// import axios from "axios";
-// import UserCard from './UserCard';
-// import SearchBar from './SearchBar';
+import React, { useState, useEffect} from "react";
+import axios from "axios";
+import UserCard from './UserCard';
+import SearchBar from './SearchBar';
+import NavMenu from "./NavMenu";
 
-// export default function Users() {
-//     // original list
-//     const [chars, setChars] = useState([]);
-//     // filtered list
-//     const [filterChars, setFilterChars] = useState([]);
+export default function Users() {
+    // original state
+    const [chars, setChars] = useState([]);
+    // filtered state
+    const [filterChars, setFilterChars] = useState([]);
 
-//     const search = (value) => {
-//       if (value === "") {
+    // search logic to compare original state to filtered
+    const search = (value) => {
+      if (value === "") {
+       // limit original users state to a hundred
+        setFilterChars(chars.slice(-100));
+      } 
+      
+      else {
+        const filterArray = chars.filter(char => {
+          return char['username'].toLowerCase().search(value.toLowerCase())  > -1 ;
+        })
+         // limit filtered users state to a hundred
+        setFilterChars(filterArray.slice(-100));
+      }
+    }
 
-//         setFilterChars(chars.slice(-100));
-//       } 
+    // hook to get API request
+    useEffect(() => {
+    
+      axios.get('https://backend-guesswho.herokuapp.com/api/auth/users')
+        .then((response) => {
+          console.log(response.data)
+          setChars(response.data);
+          setFilterChars(response.data);
+        })
+        .catch(err => console.log(err));
+    }, []); 
 
-//       else {
-//         const filterArray = chars.filter(char => {
-//           return char['username'].toLowerCase().search(value.toLowerCase())  > -1 ;
-//         })
+  return (
 
-//         setFilterChars(filterArray.slice(-100));
-//       }
-//     }
+    <div className="usersContainer">
 
-//     useEffect(() => {
+      <div className="NavMenu">
+      {/* Added NavMenu here */}
+      <NavMenu/> 
+      </div>
 
-//       axios.get('https://backend-guesswho.herokuapp.com/api/auth/users')
-//         .then((response) => {
-//           console.log(response.data)
-//           setChars(response.data);
-//           setFilterChars(response.data);
-//         })
-//         .catch(err => console.log(err));
-//     }, []); // runs once after rendering
-
-//   return (
-//     <section className="loginForm">
-
-//       <h2>Users</h2>
-//       <SearchBar search = {search} />
-//       {filterChars.map((char) => {
-//         return ( 
-//           <UserCard
-//             key={char.id} 
-//             name={char.username} />
-//         )
-//       })}
-//     </section>
-//   );
-// }
+      <div className="usersList">
+      <h2>User List</h2>
+      <SearchBar search = {search} />
+      {filterChars.map((char) => {
+        return ( 
+          <UserCard
+            key={char.id} 
+            name={char.username} />
+        )
+      })}
+    </div>
+    </div>
+  );
+}
