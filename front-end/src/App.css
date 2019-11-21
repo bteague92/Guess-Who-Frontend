@@ -88,7 +88,6 @@
 }
 
 .playScreen{
-<<<<<<< HEAD
   height: 100vh;
   background: black;
 }
@@ -155,7 +154,6 @@ li {
   margin: 5px;
   width: 45%;
   
-=======
   padding: 3%;
   display: flex;
   flex-direction: column;
@@ -201,5 +199,4 @@ li {
   color: white;
   border-radius: 10px;
   margin: 2%;
->>>>>>> 2c9b9a996d424d6558e9cdbe41074ebc2707e3ce
 }
