@@ -1,33 +1,49 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from "axios";
 import Context from "./../contexts/loginContext";
+import { axiosWithAuth } from "./../utils/axiosWithAuth";
 
 const PlayScreen = (props) => {
 
-    const { setScore, score, setHighScore, highScore } = useContext(Context);
+    const { credentials, setScore, score, setHighScore, highScore } = useContext(Context);
 
     const [answerChoices, setAnswerChoices] = useState([]);
     const [tweetChoices, setTweetChoices] = useState([]);
     const [answerId, setAnswerId] = useState();
     const [tweetId, setTweetId] = useState();
     const [randomTweet, setRandomTweet] = useState('')
+    const [wrongAnswers, setWrongAnswers] = useState(0);
+
+    ////////////////////////ANSWER CHOICE GRABBER
 
     useEffect(() => {
         axios
             .get(`https://backend-guesswho.herokuapp.com/api/auth/photos`)
             .then(res => {
-                console.log(res);
                 setAnswerChoices(res.data);
-                console.log("res.data", res.data)
             })
             .catch(err => console.log("answers error", err))
     }, [])
+
+    ///////////////////////// SCORE SETTER
+
+    // useEffect(() => {
+    //     if (wrongAnswers === 3) {
+    //     } else {
+    //         return console.log("right answer")
+    //     }
+    // }, [highScore])
+
+    function tick(score) {
+        setHighScore(score)
+    }
+
+    /////////////////////////TWEET RANDOMIZER
 
     useEffect(() => {
         axios
             .get(`https://backend-guesswho.herokuapp.com/api/auth/tweets`)
             .then(res => {
-                console.log(res);
                 setTweetChoices(res.data);
                 setRandomTweet(res.data[getRandomNumber(8)])
             })
@@ -37,12 +53,27 @@ const PlayScreen = (props) => {
             setHighScore(score);
             localStorage.setItem("hs", score);
         }
-    }, [score])
 
-    useEffect(() => {
-        console.log("here", tweetChoices);
+        if (wrongAnswers === 3) {
+            axiosWithAuth()
+                .put(`/api/auth/users/scores/${localStorage.getItem("id")}`, { "score": highScore })
+                .then(res => {
+                    console.log("first res", res)
+                    axiosWithAuth()
+                        .get(`/api/auth/users/${localStorage.getItem("id")}`)
+                        .then(res => {
+                            console.log("second res", res)
+                            setHighScore(res.data[3].score)
+                        })
+                        .catch(err => err);
+                })
+                .catch(err => console.log("tweets error", err))
+            setScore(0);
+            props.history.push("/main-screen");
+        }
+    }, [score, wrongAnswers])
 
-    }, [tweetChoices])
+    ////////////////////////////NUMBER RANDOMIZER
 
     function getRandomNumber(num) {
         return Math.floor(Math.random() * Math.floor(num))
@@ -50,18 +81,19 @@ const PlayScreen = (props) => {
 
     return (
         <div className="playScreen">
-            <h1>Score: {score}</h1>
+            <div className="scoreAndStrikes">
+                <h1>Score: {score}</h1>
+                <h1>Strikes: {wrongAnswers}</h1>
+            </div>
             <div className="answers">
                 {answerChoices.map((i) => {
                     return (
                         <div onClick={(e) => {
                             e.preventDefault();
-                            console.log(i.twitter_user_id);
-                            console.log(randomTweet.id);
                             if (i.twitter_user_id === randomTweet.id) {
                                 return setScore(score + 1);
                             } else if (i.twitter_user_id !== randomTweet.id) {
-
+                                return setWrongAnswers(wrongAnswers + 1)
                             }
                         }}
                         > <img className="pics" src={i.pic}></img></div>
@@ -69,9 +101,9 @@ const PlayScreen = (props) => {
                 })}
             </div>
             <div className="choices">
-                <h3 className="tweets">{randomTweet.tweet}</h3>
+                <h3 className="tweets">Who tweeted:<br /><br />{randomTweet.tweet}</h3>
             </div >
-            <button onClick={() => {
+            <button className="mainButtons" onClick={() => {
                 setScore(0);
                 props.history.push("/main-screen")
             }}>Back</button>
