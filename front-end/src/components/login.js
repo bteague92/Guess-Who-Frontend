@@ -4,24 +4,26 @@ import Context from "./../contexts/loginContext";
 
 const Login = (props) => {
 
-    const { credentials, setCredentials, setLoggedIn, loggedIn } = useContext(Context);
+    const { credentials, setCredentials, setLoggedIn, loggedIn, highScore, setHighScore } = useContext(Context);
 
     const login = e => {
         e.preventDefault();
         axiosWithAuth()
             .post("/api/auth/login", credentials)
             .then(res => {
-
+                console.log("response from login", res)
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("username", credentials.username);
+                localStorage.setItem("id", res.data.id);
                 setLoggedIn(true);
                 if (loggedIn === true) {
                     props.history.push("/main-screen")
                 }
                 setCredentials({
                     username: credentials.username
-                })
-                console.log("credentials after login", credentials);
+                });
+                setHighScore(res.data.score ? res.data.score : "---");
+                console.log("high score", highScore);
             })
             .catch(err => err)
     };
@@ -33,7 +35,7 @@ const Login = (props) => {
         } else {
             props.history.push("/")
         }
-    }, [loggedIn])
+    }, [loggedIn, highScore])
 
     const handleChange = (e) => {
         setCredentials({
