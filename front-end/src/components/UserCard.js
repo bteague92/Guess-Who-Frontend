@@ -11,7 +11,7 @@ const CardBody = styled.div`
 `;
 
 const CardText = styled.p`
-    font-size: 40px;
+    font-size: 20px;
     color: rgb(220, 255, 92);
 `;
 
@@ -22,7 +22,10 @@ export default function UserCard(props) {
       <Card>
         <CardBody>
           <ul>
-            <li><CardText >{props.name}</CardText></li>
+            <li>
+                <CardText >{props.name}</CardText>
+                <CardText >Score: {props.score}</CardText>
+            </li>
           </ul>   
         </CardBody>
       </Card> 
