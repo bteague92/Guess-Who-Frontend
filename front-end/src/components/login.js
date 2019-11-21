@@ -17,23 +17,13 @@ const Login = (props) => {
                 localStorage.setItem("id", res.data.id);
                 setHighScore(res.data.score)
                 setLoggedIn(true);
-                if (loggedIn === true) {
-                    props.history.push("/main-screen")
-                }
                 setCredentials({
                     username: credentials.username
                 });
+                props.history.push("/main-screen")
             })
             .catch(err => err)
     };
-
-    useEffect(() => {
-        if (loggedIn === true) {
-            props.history.push("/main-screen")
-        } else {
-            props.history.push("/")
-        }
-    }, [loggedIn, highScore])
 
     const handleChange = (e) => {
         setCredentials({

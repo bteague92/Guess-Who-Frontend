@@ -14,7 +14,7 @@ const MainScreen = (props) => {
         props.history.push("/play-screen");
     }
 
-    const deleteAccount = user => {
+    const deleteAccount = e => {
         axiosWithAuth()
             .delete(`/api/auth/users/${localStorage.getItem("id")}`)
             .then(res => {
@@ -23,9 +23,11 @@ const MainScreen = (props) => {
                 localStorage.removeItem("id");
                 localStorage.removeItem("hs");
                 setLevel(0);
-                props.history.push("/");
+                console.log(props);
+
             })
             .catch(err => console.log(err))
+        props.history.push("/");
     };
 
     const logout = e => {
@@ -53,6 +55,7 @@ const MainScreen = (props) => {
                     username: res.data.username
                 })
                 localStorage.setItem("username", credentials.username);
+
             })
             .catch(err => err)
     }
