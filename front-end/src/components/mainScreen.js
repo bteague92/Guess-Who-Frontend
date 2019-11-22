@@ -82,7 +82,7 @@ const MainScreen = (props) => {
 
     useEffect(() => {
         setHighScore(localStorage.getItem("hs"))
-    }, [username])
+    }, [credentials.username])
 
     return (
         <div>
