@@ -15,7 +15,11 @@ const Login = (props) => {
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("username", credentials.username);
                 localStorage.setItem("id", res.data.id);
-                localStorage.setItem("hs", res.data.score);
+                if (res.data.score === null) {
+                    localStorage.setItem("hs", 0)
+                } else {
+                    localStorage.setItem("hs", res.data.score)
+                }
                 setHighScore(res.data.score)
                 setLoggedIn(true);
                 setCredentials({
