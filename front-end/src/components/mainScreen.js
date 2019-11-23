@@ -14,6 +14,11 @@ const MainScreen = (props) => {
         props.history.push("/play-screen");
     }
 
+    const playTwo = (e) => {
+        e.preventDefault();
+        props.history.push("/two-player-screen");
+    }
+
     const deleteAccount = e => {
         axiosWithAuth()
             .delete(`/api/auth/users/${localStorage.getItem("id")}`)
@@ -96,6 +101,7 @@ const MainScreen = (props) => {
                 <div className="mainScreenItem">Level: {level}</div>
                 <div className="mainScreenItem">High Score: {highScore}</div>
                 <button onClick={play} className="playButton">Play</button>
+                <button onClick={playTwo} className="playTwoButton">Two Player</button>
                 <button className="signOutButton" onClick={logout}>Sign Out</button>
                 <button className="deleteButton" onClick={deleteAccount}>Delete Account</button>
             </div>
