@@ -1,5 +1,5 @@
 # Project title
-## Guess Who is a game where players are given a set of 4 people and one tweet. They are then tasked with choosing who they thing was the creator of said tweet. Score is based on how many correct answers they get
+## Guess Who is a game where players are given a set of 4 people and one tweet. They are then tasked with choosing who they think was the creator of said tweet. Score is based on how many correct answers they get
 
 # Motivation
 I got the idea for this project from a Labs project while I was in Lambda School. It seemed like a really fun program to make, so I decided to create it as a react app.
